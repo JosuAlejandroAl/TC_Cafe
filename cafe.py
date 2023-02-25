@@ -1,41 +1,49 @@
 import re
 
-def drink(cadena):
-    cadena = cadena.replace(" ", "")
-    patron = re.compile("^[a-zA-Z]{2,15}$")
-    if patron.match(cadena):
-        print("valido")
+def drink(beverage_name):
+    beverage_name = beverage_name.replace(" ", "")
+    pattern = re.compile("^[a-zA-Z]{2,15}$")
+    if pattern.match(beverage_name):
+        print("Valido nombre de bebida")
     else:
-        print("No tenemos esa bedida")
-    
-cadena_valida = input("Ingresa el nombre de la bebida: ")
-print(drink(cadena_valida))  
+        print("Invalido nombre de bebida")
 
-# funcion de la lista
-
-def listNum(listSize):
-    lista_numeros = []
+def size_list(size_string):
+    size_list = []
     try:
-        listSize = [int(numero.strip()) for numero in sizeDrink.replace(" ", "").split(",")]
-        if len(listSize) < 1 or len(listSize) > 5:
-            print("La lista debe tener entre 1 y 5 números")
+        # Remove spaces and split the string into a list
+        size_string = size_string.replace(" ", "")
+        size_list = [int(num) for num in size_string.split(",")]
+        
+        # Validate the size list
+        if len(size_list) < 1 or len(size_list) > 5:
+            print("El numero de los tamanos de bebidas debe ser entre 1 y 5")
             return None
-        for numero in listSize:
-            if numero < 1 or numero > 48:
-                print("Los números deben estar en el rango del 1 al 48")
+        for num in size_list:
+            if num < 1 or num > 48:
+                print("Los tamanos deben estar en un rango de 1 - 48")
                 return None
-        lista_numeros = sorted(listSize)
-        if lista_numeros != listSize:
+        if size_list != sorted(size_list):
             print("Los números deben estar en orden ascendente")
             return None
     except ValueError:
-        print("Algo ocurrio mal")
+        print("Invalid size list.")
         return None
-    return lista_numeros
+    
+    print("El orden de los tamanos es la siguiente", sorted(size_list))
+    return sorted(size_list)
 
-sizeDrink = input("Ingresa el tamano de la bebida: ")
-lista_numeros = listNum(sizeDrink)
-if lista_numeros:
-    print("La lista ordenada es:", lista_numeros)
+# Get input from the user
+input_string = input(" ingresa el nombre de la bebida y despues el tamano")
+
+# Split the input string into the beverage name and size list
+input_list = input_string.split(",")
+
+# Call the functions to validate the input
+if len(input_list) < 2:
+    print("No ingresaste bien los valores recuerda que debe ser primero el nombre y depsues con una coma ',' sigue los tamanos de la bebida .")
 else:
-    print("Su prueba no fue valida") 
+    beverage_name = input_list[0]
+    size_string = ",".join(input_list[1:])
+    drink(beverage_name)
+    size_list(size_string)
